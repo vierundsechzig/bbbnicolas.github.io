@@ -32,6 +32,7 @@ theme: minima
 plugins:
   - jekyll-feed
 excerpt_separator: ""
+timezone: Asia/Shanghai
 
 # Exclude from processing.
 # The following items will not be processed, by default.
