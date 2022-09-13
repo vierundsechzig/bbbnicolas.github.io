@@ -140,7 +140,6 @@ blockquote {
   border: 2px solid $text-color;
   @include relative-font-size(0.9375);
   letter-spacing: -1px;
-  font-style: italic;
 
   > :last-child {
     margin-bottom: 0;
