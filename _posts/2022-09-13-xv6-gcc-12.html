@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "Issues compiling xv6 with latest gcc version"
+date:   2022-09-13 23:30:00 +0800
+categories: computer xv6
+---
+<h2>问题描述</h2>
+<p>在用高版本<code>gcc</code>编译 xv6 时，会出现以下错误（这里用的是12.1.1）：</p>
+<pre class="no-shade"><kbd class="bash">make qemu</kbd>
+...
+<samp>user/sh.c: In function 'runcmd':
+user/sh.c:58:1: error: infinite recursion detected [-Werror=infinite-recursion]
+    58 | runcmd(struct cmd *cmd)
+       | ^~~~~~
+...
+</samp></pre>
+<p>这是因为<code>gcc</code>高版本加入了对无限递归函数的检测，在默认设置下将其视为错误。但是在操作系统中，很多功能都是不返回的，如<code>exec</code>更换进程上下文后正常执行是不会返回的，而<code>sh</code>在正常情况下在子进程结束后也将返回到本身，继续接收下一条命令。因此，不应将<code>sh.c</code>的这种写法视为错误。</p>
+<h2>解决方案</h2>
+<p>1. 为<code>runcmd</code>加上<code>noreturn</code>标签，这样编译器知道它是永不返回的，因而不会将它的无限递归调用视为错误。具体而言，可以在<code>runcmd</code>函数定义前面加上该标签，如</p>
+{% highlight cpp %}
+...
+// Execute cmd.  Never returns.
+__attribute__((noreturn))
+void
+runcmd(struct cmd *cmd)
+...
+{% endhighlight %}
+<p>或者直接加上一个带有<code>noreturn</code>标签的函数原型，如</p>
+{% highlight cpp %}
+...
+struct cmd *parsecmd(char*);
+void runcmd(struct cmd*) __attribute__((noreturn));
+
+// Execute cmd.  Never returns.
+void
+runcmd(struct cmd *cmd)
+...
+{% endhighlight %}
+<p>2. 告知编译器，忽略无限递归的错误。在<code>Makefile</code>中找到以下行</p>
+{% highlight make %}
+CFLAGS = -Wall -Werror -O -fno-omit-frame-pointer -ggdb
+{% endhighlight %}
+<p>将其改为</p>
+{% highlight make %}
+CFLAGS = -Wall -Werror -Wno-error=infinite-recursion -O -fno-omit-frame-pointer -ggdb
+{% endhighlight %}
+<h2>参考资料</h2>
+<p><cite><a href="https://github.com/mit-pdos/xv6-riscv/pull/126">https://github.com/mit-pdos/xv6-riscv/pull/126</a></cite></p>
+<h2>鸣谢</h2>
+<p>感谢 Eastonman 为我提供的 GitHub pull request 链接。</p>
