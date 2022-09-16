@@ -14,7 +14,7 @@ user/sh.c:58:1: error: infinite recursion detected [-Werror=infinite-recursion]
        | ^~~~~~
 ...
 </samp></pre>
-<p>这是因为<code>gcc</code>高版本加入了对无限递归函数的检测，在默认设置下将其视为错误。但是在操作系统中，很多功能都是不返回的，如<code>exec</code>更换进程上下文后正常执行是不会返回的，而<code>sh</code>在正常情况下在子进程结束后也将返回到本身，继续接收下一条命令。因此，不应将<code>sh.c</code>的这种写法视为错误。</p>
+<p>这是因为<code>gcc</code>高版本加入了对无限递归函数的检测，在默认设置下会对这种行为发出警告。而 xv6 中的编译选项有<code>-Werror</code>，因此该警告会被视为错误。但是在操作系统中，很多功能都是不返回的，如<code>exec</code>更换进程上下文后正常执行是不会返回的，而<code>sh</code>在正常情况下在子进程结束后也将返回到本身，继续接收下一条命令。因此，不应将<code>sh.c</code>的这种写法视为错误。</p>
 <h2>解决方案</h2>
 <p>1. 为<code>runcmd</code>加上<code>noreturn</code>标签，这样编译器知道它是永不返回的，因而不会将它的无限递归调用视为错误。具体而言，可以在<code>runcmd</code>函数定义前面加上该标签，如</p>
 {% highlight cpp %}
