@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "BBB's Algorithm Prism | Common instances of divide-and-conquer"
+date:   2022-09-28 16:40:00 +0800
+categories: computer algorithms
+---
+<h2>前言</h2>
+<p>分治法是算法设计与分析中的常见思想，它将大的问题分解为小问题的组合，分而治之，从而解决原问题。本贴仅列出常见的分治案例，以极为概括的语言将其分治的方法描述出来，不会具体分析分治的思路。</p>
+<h2>常见案例</h2>
+<h3>整数乘法</h3>
+<p>假设有两个十进制数 \(x\) 和 \(y\) ，现在要计算 \(xy\)。方便起见，假设它们的位数是2的幂次，则可以将 \(x\) 和 \(y\) 按数位对半分成 \(x_L, x_R\) 和 \(y_L, y_R\)，那么有</p>
+$$
+xy = \left(10^{\frac{n}{2}}x_L+x_R\right)\left(10^{\frac{n}{2}}y_L+y_R\right)={10^n}{x_L}{y_L}+10^{\frac{n}{2}}({x_L}{y_R}+{x_R}{y_L})+{x_R}{y_R}
+$$
+<p>这种算法与朴素的算法相比并不能降低复杂度。可以将 \({x_L}{y_R}+{x_R}{y_L}\) 简化</p>
+$$
+{x_L}{y_R}+{x_R}{y_L} = (x_L + y_L)(x_R + y_R) - {x_L}{y_L} - {x_R}{y_R}
+$$
+<p>这里面 \({x_L}{y_L}\) 和 \({x_R}{y_R}\) 已经计算过，所以该式将两个乘法计算减少为一个算法计算。</p>
+<p>递推式：</p>
+$$
+T(n) = 3T(n/2) + O(n)
+$$
+<p>解得</p>
+$$
+T(n) = O(n^{\log_2{3}}) \approx O(n^{1.59})
+$$
+<h3>归并排序</h3>
+<p>将原表对半分为两个子表分别进行归并排序，然后再将两个子表进行合并。子表合并复杂度为 \(O(n)\)。</p>
+<p>递推式：</p>
+$$
+T(n) = 2T(n/2) + O(n)
+$$
+<p>解得</p>
+$$
+T(n) = O(n\log{n})
+$$
+<h3>矩阵乘法</h3>
+<p>设有 \(n\times{n}\) 矩阵 \(X, Y\)。将它们各分成四个 \(n/2\times{n/2}\) 的矩阵，那么有</p>
+$$
+X=
+\begin{bmatrix}
+  A & B \\
+  C & D
+\end{bmatrix}
+, Y=
+\begin{bmatrix}
+  E & F \\
+  G & H
+\end{bmatrix}
+$$
+<p>需计算</p>
+$$
+XY=
+\begin{bmatrix}
+  AE+BG & AF+BH \\
+  CE+DG & CF+DH
+\end{bmatrix}
+$$
+<p>这种算法复杂度为 \(O(n^3)\) ，需要优化。可使用Strassen算法。</p>
+<p>令</p>
+$$
+P_1 = A(F-H), P_2 = (A+B)H, P_3 = (C+D)E, P_4 = D(G-E) \\
+P_5 = (A+D)(E+H), P_6 = (B-D)(G+H), P_7 = (A-C)(E+F)
+$$
+<p>则</p>
+$$
+XY=
+\begin{bmatrix}
+  P_5+P_4-P_2+P_6 & P_1+P_2 \\
+  P_3+P_4 & P_1+P_5-P_3-P_7
+\end{bmatrix}
+$$
+<p>递推式：</p>
+$$
+T(n) = 7T(n/2) + O(n^2)
+$$
+<p>解得</p>
+$$
+T(n) = O(n^{\log_2{7}}) \approx O(n^{2.81})
+$$
+<h3>多项式乘法</h3>
+<p>To be continued ...</p>
+<h2>参考资料</h2>
