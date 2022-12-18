@@ -19,10 +19,10 @@
 # in the templates via {{ site.myvariable }}.
 
 author: Nicolas Liu
-title: Strive and Thrive
+title: Horsing Around
 email: nickluisliu@outlook.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Space to share ideas and insights
+  Not much serious stuff here. Most being horseplay.
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "http://bbbnicolas.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  vierundsechzig
