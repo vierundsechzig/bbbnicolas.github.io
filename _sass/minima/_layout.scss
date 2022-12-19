@@ -2,7 +2,7 @@
  * Site header
  */
 .site-header {
-  background-color: $grey-color-light;
+  background-color: $background-brand-color;
   min-height: $spacing-unit * 1.865;
 
   // Positioning context for the mobile navigation icon
@@ -11,9 +11,11 @@
 
 .site-title {
   @include relative-font-size(1.625);
+  font-family: RockSalt;
+  color: $brand-color;
   font-weight: 300;
   line-height: $base-line-height * $base-font-size * 2.25;
-  letter-spacing: -1px;
+  letter-spacing: 3px;
   margin-bottom: 0;
 }
 
@@ -58,7 +60,7 @@
  * Site footer
  */
 .site-footer {
-  background: $grey-color-light;
+  background: $background-brand-color;
   padding: $spacing-unit 0;
 }
 
