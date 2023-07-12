@@ -36,10 +36,40 @@ print_hi('Tom')
 </code></pre>
 <h2>Example of equation rendering</h2>
 <p>Block equation:</p>
-$$
-f(x)=x^2
-$$
-<p>Inline equation: \(a^2+b^2=c^2\)</p>
+<math display="block">
+  <msup>
+    <mi>a</mi>
+    <mn>2</mn>
+  </msup>
+  <mo>+</mo>
+  <msup>
+    <mi>b</mi>
+    <mn>2</mn>
+  </msup>
+  <mo>=</mo>
+  <msup>
+    <mi>c</mi>
+    <mn>2</mn>
+  </msup>
+</math>
+<p>Inline equation:
+  <math>
+    <msup>
+      <mi>a</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>+</mo>
+    <msup>
+      <mi>b</mi>
+      <mn>2</mn>
+    </msup>
+    <mo>=</mo>
+    <msup>
+      <mi>c</mi>
+      <mn>2</mn>
+    </msup>
+  </math>
+</p>
 <h2>Example of inline quote and blockquote</h3>
 <p>According to Shakespeare, <q>To be or not to be, that is the question.</q></p>
 <p>Favorite excerpt from <cite>The Kite Runner</cite></p>
