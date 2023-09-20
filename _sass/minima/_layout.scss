@@ -204,3 +204,19 @@
   float:right;
   width:38%;
 }
+
+dl.display-list {
+  display:grid;
+  grid-template-columns: max-content auto;
+}
+
+dl.display-list dt {
+  grid-column-start: 1;
+  padding-right: 1em;
+  font-weight: bold;
+}
+
+dl.display-list dd {
+  grid-column-start: 2;
+}
+
