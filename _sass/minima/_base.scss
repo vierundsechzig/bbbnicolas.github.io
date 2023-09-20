@@ -194,7 +194,7 @@ pre {
 
 pre.no-shade {
   @include relative-font-size(0.9375);
-  background-color: $background-color;
+  background-color: transparent;
   padding: 0;
   border: 0;
   overflow-x: auto;
