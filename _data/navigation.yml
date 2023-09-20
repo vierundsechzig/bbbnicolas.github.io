@@ -1,0 +1,8 @@
+nav_title: Site navigation
+pages:
+
+- title: Amis
+  url: amis.html
+
+- title: About
+  url: about.html

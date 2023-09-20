@@ -1,25 +1,22 @@
 <header class="site-header" role="banner">
 
   <div class="wrapper">
-    {%- assign default_paths = site.pages | map: "path" -%}
-    {%- assign page_paths = site.header_pages | default: default_paths -%}
+    {%- assign page_paths = site.data.navigation.pages -%}
     <p class="site-title">{{ site.title | escape }}</p>
 
     {%- if page_paths -%}
       <nav class="site-nav">
-        {%- if page.layout == 'home' -%}
-        <a class="page-link current" href="/">Home</a>
-        {%- else -%}
-        <a class="page-link" href="/">Home</a>
+        {%- if page.url == "/" -%}
+          <a class="page-link current" href="/">Home</a>
+          {%- else -%}
+          <a class="page-link" href="/">Home</a>
         {%- endif -%}
-        {%- for path in page_paths -%}
-          {%- assign my_page = site.pages | where: "path", path | first -%}
-          {%- if my_page.title and my_page.layout != "home" -%}
-            {%- if my_page.url == page.url -%}
-            <a class="page-link current" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-            {%- else -%}
-            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-            {%- endif -%}
+        {%- for item in page_paths -%}
+          {%- assign my_page = site.pages | where: "path", item.url | first -%}
+          {%- if my_page.url == page.url -%}
+          <a class="page-link current" href="{{ my_page.url | relative_url }}">{{ item.title | escape }}</a>
+          {%- else -%}
+          <a class="page-link" href="{{ my_page.url | relative_url }}">{{ item.title | escape }}</a>
           {%- endif -%}
         {%- endfor -%}
       </nav>

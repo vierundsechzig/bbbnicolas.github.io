@@ -60,6 +60,7 @@
  * Site footer
  */
 .site-footer {
+  clear:both;
   background: $background-brand-color;
   padding: $spacing-unit 0;
 }
@@ -197,4 +198,9 @@
       @include relative-font-size(1.125);
     }
   }
+}
+
+.home-sidebar {
+  float:right;
+  width:38%;
 }
