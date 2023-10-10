@@ -71,8 +71,18 @@
  * Site footer
  */
 .site-footer {
-  clear:both;
+  clear: both;
   padding: $spacing-unit 0;
+}
+
+.home-postlist {
+  float: left;
+  width: 60%;
+}
+
+.home-sidebar {
+  float: right;
+  width: 36%;
 }
 
 .footer-heading {
@@ -115,6 +125,16 @@
 }
 
 @include media-query($on-laptop) {
+  .home-postlist {
+    float: right;
+    width: 60%;
+  }
+
+  .home-sidebar {
+    float: left;
+    width: 36%;
+  }
+
   .footer-col-1,
   .footer-col-2 {
     width: -webkit-calc(50% - (#{$spacing-unit} / 2));
@@ -128,6 +148,16 @@
 }
 
 @include media-query($on-palm) {
+  .home-postlist {
+    float: none;
+    width: 100%;
+  }
+
+  .home-sidebar {
+    float: none;
+    width: 100%;
+  }
+
   .footer-col {
     float: none;
     width: -webkit-calc(100% - (#{$spacing-unit} / 2));
@@ -210,11 +240,6 @@
       @include relative-font-size(1.125);
     }
   }
-}
-
-.home-sidebar {
-  float:right;
-  width:38%;
 }
 
 dl.display-list {
